@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Select from 'react-select'
-import { useState } from 'react';
 
 const Title = styled.h1(props => ({
     fontSize: "0.8em",
@@ -289,7 +288,6 @@ const DividerContainer = styled.div`
 
 const DividerText = styled.span(props => ({
     fontSize: "0.5em",
-    textTransform: props?.textTransform || "none",
     cursor: props?.cursor || "cursor",
     marginRight: props?.marginRight || "0px",
     textTransform: "uppercase",

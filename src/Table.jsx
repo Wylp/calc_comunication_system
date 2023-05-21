@@ -104,7 +104,7 @@ const Table = ({ data }) => {
                                 {row.cells.map((cell, j) => {
                                     return (
                                     <td
-                                        onClick={() => getCellValue(cell,j)} 
+                                        onClick={() => {}} 
                                         {...cell.getCellProps()}>
                                             {cell.render('Cell')}
                                         </td>
