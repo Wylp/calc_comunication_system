@@ -17,7 +17,7 @@ Esta aplicação em React tem como objetivo calcular o sinal de sistemas de comu
 1. Faça o clone deste repositório em sua máquina local:
 
 ```
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/Wylp/calc_comunication_system.git
 ```
 
 2. Acesse o diretório do projeto:
