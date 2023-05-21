@@ -68,22 +68,14 @@ const Initial_State = [{
     ]
 }, {
     Symbol:
-        <Draw>
+        <Draw
+            style={{
+                marginBottom: "2em"
+            }}>
             <span>RX</span>
         </Draw>,
     type: "Final",
-    Inputs: [
-        {
-            type: "input",
-            placeholder: "Valor Final",
-            unit_measure: null,
-            option: "DBM",
-            inputValue: 0,
-            has_option: true,
-            read_only: true,
-            has_unit_measure: true,
-        }
-    ]
+    Inputs: []
 }]
 
 export default Initial_State;

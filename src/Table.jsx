@@ -62,7 +62,16 @@ const Table = ({ data }) => {
             }
         ],
         []
-    )
+    );
+
+    // const getCellValue = (e, j) => {
+    //     console.log({
+    //         row: e.row
+    //     });
+    //     e.row.allCells[j].value = "teste";
+    // };
+
+    // To do: add a function to edit the cell value when clicked
 
     const {
         getTableProps,
@@ -92,8 +101,14 @@ const Table = ({ data }) => {
                         prepareRow(row)
                         return (
                             <tr {...row.getRowProps()}>
-                                {row.cells.map(cell => {
-                                    return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                {row.cells.map((cell, j) => {
+                                    return (
+                                    <td
+                                        onClick={() => getCellValue(cell,j)} 
+                                        {...cell.getCellProps()}>
+                                            {cell.render('Cell')}
+                                        </td>
+                                    )
                                 })}
                             </tr>
                         )

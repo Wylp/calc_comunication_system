@@ -4,7 +4,8 @@ import {
     InputSwitch,
     Column,
     Row,
-    Divider
+    Divider,
+    DividerBlock
 } from './components.jsx';
 
 import {
@@ -25,6 +26,9 @@ const Application = () => {
         const {
             tableData
         } = calculationBlocks.reduce((acc, { Inputs }, index, array_completed) => {
+
+            const is_last_block = array_completed.length - 1 === index;
+            if (is_last_block) return acc;
 
             if (acc.flag_to_calculate === false) return acc;
 
@@ -124,7 +128,7 @@ const Application = () => {
                     stepName: String.fromCharCode(index + 65),
                     signal: step_signal.toFixed(2),
                     noise: step_noise.toFixed(2),
-                    sn_value: (step_signal - step_noise).toFixed(2)
+                    sn_value: (step_signal - step_noise).toFixed(2),
                 });
 
                 return acc;
@@ -138,7 +142,7 @@ const Application = () => {
                 stepName: String.fromCharCode(index + 65),
                 signal: step_signal.toFixed(2),
                 noise: new_step_noise_in_dbm.toFixed(2),
-                sn_value: (step_signal - new_step_noise_in_dbm).toFixed(2)
+                sn_value: (step_signal - new_step_noise_in_dbm).toFixed(2),
             });
 
             return acc;
@@ -189,41 +193,53 @@ const Application = () => {
                         Symbol
                     }, block_index) => {
 
+                        const is_last_block = calculationBlocks.length - 1 === block_index;
 
                         return (
-                            <Column key={block_index}>
-                                {Symbol}
+                            <>
+                                <Column key={block_index}>
+                                    {Symbol}
+                                    {
+                                        Inputs.map(({
+                                            placeholder,
+                                            option: input_option,
+                                            read_only,
+                                            has_option,
+                                            has_unit_measure
+                                        }, input_index) => (
+                                            <InputSwitch
+                                                key={placeholder}
+                                                placeholder={placeholder}
+                                                onChangeCheckbox={() => {
+                                                    const option = input_option === "DBM" ? "w" : "DBM";
+                                                    modifyCalculationBlocks(block_index, input_index, { option })
+                                                }}
+                                                onSelectValue={(selectedOption) => {
+                                                    const unit_measure = selectedOption.value;
+                                                    modifyCalculationBlocks(block_index, input_index, { unit_measure })
+                                                }}
+                                                onInputValueChange={(inputValue) => {
+                                                    const formmatedInputValue = Number(inputValue);
+                                                    modifyCalculationBlocks(block_index, input_index, { inputValue: formmatedInputValue });
+                                                }}
+                                                option={input_option}
+                                                readOnly={read_only}
+                                                hasOption={has_option}
+                                                hasUnitMeasure={has_unit_measure}
+                                            />
+                                        ))
+                                    }
+                                </Column>
                                 {
-                                    Inputs.map(({
-                                        placeholder,
-                                        option: input_option,
-                                        read_only,
-                                        has_option,
-                                        has_unit_measure
-                                    }, input_index) => (
-                                        <InputSwitch
-                                            key={placeholder}
-                                            placeholder={placeholder}
-                                            onChangeCheckbox={() => {
-                                                const option = input_option === "DBM" ? "w" : "DBM";
-                                                modifyCalculationBlocks(block_index, input_index, { option })
+                                    is_last_block === false && 
+                                        <DividerBlock 
+                                            text={String.fromCharCode(block_index + 65)} 
+                                            onClick={() => {
+                                                // Todo: Add new block
                                             }}
-                                            onSelectValue={(selectedOption) => {
-                                                const unit_measure = selectedOption.value;
-                                                modifyCalculationBlocks(block_index, input_index, { unit_measure })
-                                            }}
-                                            onInputValueChange={(inputValue) => {
-                                                const formmatedInputValue = Number(inputValue);
-                                                modifyCalculationBlocks(block_index, input_index, { inputValue: formmatedInputValue });
-                                            }}
-                                            option={input_option}
-                                            readOnly={read_only}
-                                            hasOption={has_option}
-                                            hasUnitMeasure={has_unit_measure}
                                         />
-                                    ))
                                 }
-                            </Column>
+                            </>
                         )
                     })
                 }

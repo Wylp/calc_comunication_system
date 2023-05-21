@@ -1,3 +1,5 @@
+import "./App.css";
+
 import {
   Title,
   ApplicationBody,

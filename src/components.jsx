@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Select from 'react-select'
+import { useState } from 'react';
 
 const Title = styled.h1(props => ({
     fontSize: "0.8em",
@@ -26,6 +27,7 @@ const ApplicationBody = styled.div(props => ({
     justifyContent: "center",
     backgroundColor: "#282c34",
     minHeight: "90vh",
+    height: "auto",
     fontSize: "calc(10px + 2vmin)",
     color: "white",
     ...props.style
@@ -38,8 +40,10 @@ const ApplicationHeader = styled.div(props => ({
     justifyContent: "center",
     backgroundColor: "#23262d",
     minHeight: "10vh",
+    width: "auto",
     fontSize: "30px",
     color: "white",
+    backgroundSize: "cover",
     ...props.style
 }));
 
@@ -266,6 +270,40 @@ const InputSwitch = ({
     )
 }
 
+const DividerContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0.5em;
+    border-radius: 3px;
+    background: #FFFFFF44;
+    color: white;
+    &:hover {
+        background: #1a93a4;
+    }
+`;
+
+const DividerText = styled.span(props => ({
+    fontSize: "0.5em",
+    textTransform: props?.textTransform || "none",
+    cursor: props?.cursor || "cursor",
+    marginRight: props?.marginRight || "0px",
+    textTransform: "uppercase",
+}));
+
+const DividerBlock = ({text = "", onClick = ()=> {}}) => {
+    return (
+        <DividerContainer
+            onClick={onClick}>
+            <DividerText>{text}</DividerText>
+        </DividerContainer>
+    )
+}
+
 
 export {
     Title,
@@ -278,5 +316,6 @@ export {
     AttenuationCable,
     Divider,
     ApplicationBody,
-    ApplicationHeader
+    ApplicationHeader,
+    DividerBlock
 }
